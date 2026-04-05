@@ -1,0 +1,33 @@
+name: Update Release Banner
+
+on:
+  repository_dispatch:
+    types: [new_release]
+
+jobs:
+  update-banner:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Update HTML with new release
+        env:
+          RELEASE_VERSION: ${{ github.event.client_payload.version }}
+          RELEASE_URL: ${{ github.event.client_payload.url }}
+        run: node scripts/update_release.js
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m "docs: update release banner to ${{ github.event.client_payload.version }}" || echo "No changes to commit"
+          git push
