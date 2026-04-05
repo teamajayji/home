@@ -19,7 +19,7 @@ const bannerHtml = `
                 <span class="text-sm font-medium text-blue-800 dark:text-blue-200">
                     🎉 New Release Available: <strong>${releaseVersion}</strong>
                 </span>
-                <a href="${releaseUrl}" target="_blank" class="rounded-full bg-blue-600 px-4 py-1.5 text-xs font-bold text-white hover:bg-blue-700 transition-colors">
+                <a href="${releaseUrl}" target="_blank" class="rounded-full bg-blue-600 px-4 py-1.5 text-xs font-bold text-white hover:bg-blue-700 transition-colors dark:text-white" style="color: white !important;">
                     Download Now
                 </a>
             </div>
